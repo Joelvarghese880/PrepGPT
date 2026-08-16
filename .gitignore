@@ -1,0 +1,30 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.Python
+
+# --- Virtual environments ---
+myenv312/
+venv/
+.venv/
+
+# --- Environment secrets ---
+.env
+
+# --- ChromaDB vector store (regeneratable via ingest.py, don't commit) ---
+chroma_db/
+
+# --- Node / React (for Phase 6 frontend) ---
+node_modules/
+dist/
+.vite/
+
+# --- OS / editor junk ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# --- Logs ---
+*.log
