@@ -15,6 +15,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.routes import chat
+from app.config import settings
 
 app = FastAPI(
     title="PrepGPT API",
@@ -22,14 +23,13 @@ app = FastAPI(
     version="0.1.0",
 )
 
-# CORS: allows your React frontend (running on a different port, e.g. 5173)
-# to make requests to this API. Without this, the browser blocks the requests.
+# CORS: allows your React frontend to make requests to this API.
+# Origins are read from ALLOWED_ORIGINS env var (comma-separated) —
+# update this in Render's dashboard once you have your Vercel URL,
+# no code change needed.
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",  # Vite dev server default
-        "http://127.0.0.1:5173",
-    ],
+    allow_origins=settings.allowed_origins_list,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

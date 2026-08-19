@@ -14,7 +14,14 @@ class Settings(BaseSettings):
 
     embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"
 
+    # Comma-separated list, e.g. "http://localhost:5173,https://prepgpt.vercel.app"
+    allowed_origins: str = "http://localhost:5173,http://127.0.0.1:5173"
+
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
+
+    @property
+    def allowed_origins_list(self) -> list[str]:
+        return [origin.strip() for origin in self.allowed_origins.split(",") if origin.strip()]
 
 
 # Import this singleton everywhere instead of re-reading env vars
