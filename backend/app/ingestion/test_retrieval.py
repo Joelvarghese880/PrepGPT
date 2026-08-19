@@ -9,7 +9,7 @@ Usage (from the backend/ folder):
 import os
 os.environ["ANONYMIZED_TELEMETRY"] = "False"  # silence ChromaDB telemetry noise
 
-from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_community.embeddings.fastembed import FastEmbedEmbeddings
 from langchain_chroma import Chroma
 
 DB_PATH = "./chroma_db"
@@ -23,9 +23,7 @@ TEST_QUERIES = [
 
 
 def main():
-    embeddings = HuggingFaceEmbeddings(
-        model_name="sentence-transformers/all-MiniLM-L6-v2"
-    )
+    embeddings = FastEmbedEmbeddings(model_name="BAAI/bge-small-en-v1.5")
     vectorstore = Chroma(
         persist_directory=DB_PATH,
         embedding_function=embeddings,

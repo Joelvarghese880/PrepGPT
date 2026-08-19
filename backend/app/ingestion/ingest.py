@@ -13,7 +13,7 @@ os.environ["ANONYMIZED_TELEMETRY"] = "False"  # silence ChromaDB telemetry noise
 
 from langchain_community.document_loaders import DirectoryLoader, TextLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_community.embeddings.fastembed import FastEmbedEmbeddings
 from langchain_chroma import Chroma
 
 # --- Paths (relative to backend/ so run this from inside backend/) ---
@@ -53,11 +53,9 @@ def split_documents(documents):
 
 
 def embed_and_store(chunks):
-    """Embed chunks with a local HuggingFace model and persist to ChromaDB."""
-    print("[3/4] Loading embedding model (sentence-transformers/all-MiniLM-L6-v2)...")
-    embeddings = HuggingFaceEmbeddings(
-        model_name="sentence-transformers/all-MiniLM-L6-v2"
-    )
+    """Embed chunks with a lightweight ONNX-based model and persist to ChromaDB."""
+    print("[3/4] Loading embedding model (BAAI/bge-small-en-v1.5, ONNX)...")
+    embeddings = FastEmbedEmbeddings(model_name="BAAI/bge-small-en-v1.5")
 
     print("[4/4] Embedding chunks and writing to ChromaDB (this may take a minute)...")
     vectorstore = Chroma.from_documents(

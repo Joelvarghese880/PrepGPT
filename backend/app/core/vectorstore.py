@@ -9,14 +9,14 @@ persisted store on disk.
 import os
 os.environ["ANONYMIZED_TELEMETRY"] = "False"
 
-from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_community.embeddings.fastembed import FastEmbedEmbeddings
 from langchain_chroma import Chroma
 
 from app.config import settings
 
 
 def get_vectorstore() -> Chroma:
-    embeddings = HuggingFaceEmbeddings(model_name=settings.embedding_model)
+    embeddings = FastEmbedEmbeddings(model_name=settings.embedding_model)
     return Chroma(
         persist_directory=settings.chroma_db_path,
         embedding_function=embeddings,

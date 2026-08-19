@@ -12,7 +12,7 @@ class Settings(BaseSettings):
     chroma_db_path: str = "./chroma_db"
     chroma_collection_name: str = "interview_prep"
 
-    embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"
+    embedding_model: str = "BAAI/bge-small-en-v1.5"
 
     # Comma-separated list, e.g. "http://localhost:5173,https://prepgpt.vercel.app"
     allowed_origins: str = "http://localhost:5173,http://127.0.0.1:5173"
